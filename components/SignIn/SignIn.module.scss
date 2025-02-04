@@ -1,0 +1,85 @@
+.signIn {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  padding: 20px;
+
+  .signInContent {
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+
+    .signInLogo {
+      margin-bottom: 40px;
+      img {
+        cursor: pointer;
+      }
+    }
+
+    .signInBox {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      h1 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 16px;
+        color: #2c3e50;
+      }
+
+      p {
+        color: #666;
+        margin-bottom: 32px;
+        line-height: 1.5;
+      }
+
+      .signInButtons {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        button {
+          width: 100%;
+          padding: 12px;
+          border-radius: 6px;
+          border: none;
+          font-size: 16px;
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+
+          svg {
+            font-size: 20px;
+          }
+
+          &.linkedinBtn {
+            background: #0077b5;
+            color: white;
+
+            &:hover {
+              background: #006397;
+            }
+          }
+
+          &.googleBtn {
+            background: white;
+            color: #666;
+            border: 1px solid #ddd;
+
+            &:hover {
+              background: #f8f8f8;
+            }
+          }
+        }
+      }
+    }
+  }
+}
