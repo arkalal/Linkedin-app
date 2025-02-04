@@ -1,0 +1,76 @@
+.editor {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+
+    .linkedinIcon {
+      color: #0077b5;
+      font-size: 24px;
+    }
+
+    span {
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+
+  .textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    line-height: 1.5;
+    resize: vertical;
+    margin-bottom: 16px;
+
+    &:focus {
+      outline: none;
+      border-color: #0077b5;
+    }
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .charCount {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .error {
+      color: #dc3545;
+      font-size: 14px;
+    }
+
+    .postButton {
+      padding: 10px 20px;
+      border-radius: 6px;
+      background: #0077b5;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover {
+        background: #006397;
+      }
+
+      &:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
