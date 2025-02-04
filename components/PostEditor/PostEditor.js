@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import styles from "./PostEditor.module.scss";
 import { FaLinkedin } from "react-icons/fa";
 import { useDashboard } from "../../utils/DashboardContext";
+import axios from "../../axios/api";
 
 const PostEditor = () => {
   const { data: session } = useSession();
@@ -22,22 +23,22 @@ const PostEditor = () => {
     setError("");
 
     try {
-      const response = await fetch("/api/linkedin/post", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ text: postContent }),
+      const response = await axios.post("linkedin", {
+        text: postContent,
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to post");
+      if (response.data.success) {
+        setPostContent("");
+        // You could add a success toast/notification here
+      } else {
+        throw new Error(response.data.error || "Failed to post");
       }
-
-      setPostContent("");
-      // You could add a success notification here
     } catch (err) {
-      setError("Failed to post to LinkedIn. Please try again.");
+      const errorMessage =
+        err.response?.data?.error ||
+        err.message ||
+        "Failed to post to LinkedIn";
+      setError(errorMessage);
       console.error("Posting error:", err);
     } finally {
       setIsPosting(false);
@@ -62,9 +63,7 @@ const PostEditor = () => {
 
       <div className={styles.footer}>
         <div className={styles.charCount}>{postContent.length}/3000</div>
-
         {error && <div className={styles.error}>{error}</div>}
-
         <button
           onClick={handlePost}
           disabled={isPosting || !postContent.trim()}
