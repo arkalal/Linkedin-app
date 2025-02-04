@@ -43,14 +43,33 @@
     align-items: center;
     justify-content: space-between;
 
-    .charCount {
-      font-size: 14px;
-      color: #666;
-    }
+    .left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
 
-    .error {
-      color: #dc3545;
-      font-size: 14px;
+      .charCount {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .error {
+        color: #dc3545;
+        font-size: 14px;
+      }
+
+      .success {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #28a745;
+        font-size: 14px;
+        font-weight: 500;
+
+        svg {
+          font-size: 16px;
+        }
+      }
     }
 
     .postButton {

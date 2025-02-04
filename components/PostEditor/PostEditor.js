@@ -3,14 +3,20 @@
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import styles from "./PostEditor.module.scss";
-import { FaLinkedin } from "react-icons/fa";
+import { FaLinkedin, FaCheckCircle } from "react-icons/fa";
 import { useDashboard } from "../../utils/DashboardContext";
 import axios from "../../axios/api";
 
 const PostEditor = () => {
   const { data: session } = useSession();
-  const { postContent, setPostContent, isPosting, setIsPosting } =
-    useDashboard();
+  const {
+    postContent,
+    setPostContent,
+    isPosting,
+    setIsPosting,
+    publishStatus,
+    setPublishStatus,
+  } = useDashboard();
   const [error, setError] = useState("");
 
   const handlePost = async () => {
@@ -21,6 +27,7 @@ const PostEditor = () => {
 
     setIsPosting(true);
     setError("");
+    setPublishStatus({ success: false, message: "" });
 
     try {
       const response = await axios.post("linkedin", {
@@ -28,18 +35,19 @@ const PostEditor = () => {
       });
 
       if (response.data.success) {
-        setPostContent("");
-        // You could add a success toast/notification here
-      } else {
-        throw new Error(response.data.error || "Failed to post");
+        setPublishStatus({
+          success: true,
+          message: "Successfully published to LinkedIn!",
+        });
       }
     } catch (err) {
-      const errorMessage =
+      console.error("Full error:", err);
+      setError(
         err.response?.data?.error ||
-        err.message ||
-        "Failed to post to LinkedIn";
-      setError(errorMessage);
-      console.error("Posting error:", err);
+          err.response?.data?.details ||
+          err.message ||
+          "Failed to post to LinkedIn"
+      );
     } finally {
       setIsPosting(false);
     }
@@ -62,8 +70,16 @@ const PostEditor = () => {
       />
 
       <div className={styles.footer}>
-        <div className={styles.charCount}>{postContent.length}/3000</div>
-        {error && <div className={styles.error}>{error}</div>}
+        <div className={styles.left}>
+          <div className={styles.charCount}>{postContent.length}/3000</div>
+          {error && <div className={styles.error}>{error}</div>}
+          {publishStatus.success && (
+            <div className={styles.success}>
+              <FaCheckCircle /> {publishStatus.message}
+            </div>
+          )}
+        </div>
+
         <button
           onClick={handlePost}
           disabled={isPosting || !postContent.trim()}

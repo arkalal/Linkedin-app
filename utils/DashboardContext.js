@@ -7,12 +7,18 @@ const DashboardContext = createContext();
 export function DashboardProvider({ children }) {
   const [postContent, setPostContent] = useState("");
   const [isPosting, setIsPosting] = useState(false);
+  const [publishStatus, setPublishStatus] = useState({
+    success: false,
+    message: "",
+  });
 
   const value = {
     postContent,
     setPostContent,
     isPosting,
     setIsPosting,
+    publishStatus,
+    setPublishStatus,
   };
 
   return (
