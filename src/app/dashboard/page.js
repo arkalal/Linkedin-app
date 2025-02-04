@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.scss";
@@ -13,12 +13,17 @@ const Dashboard = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
 
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.replace("/signIn");
+    }
+  }, [status, router]);
+
   if (status === "loading") {
     return <div className={styles.loading}>Loading...</div>;
   }
 
   if (!session) {
-    router.push("/signIn");
     return null;
   }
 

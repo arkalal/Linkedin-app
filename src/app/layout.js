@@ -1,15 +1,41 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.scss";
 import { Provider } from "../../Providers";
+import localFont from "next/font/local";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const CustomFont = localFont({
+  src: [
+    {
+      path: "./fonts/07a54048a9278940-s.p.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/07a54048a9278940-s.woff2",
+      weight: "700",
+      style: "bold",
+    },
+    {
+      path: "./fonts/4f2204fa15b9b11a-s.p.woff2",
+      weight: "600",
+      style: "semi-bold",
+    },
+    {
+      path: "./fonts/90475aac776488b6-s.p.woff2",
+      weight: "600",
+      style: "semi-itlaic",
+    },
+    {
+      path: "./fonts/a34f9d1faa5f3315-s.p.woff2",
+      weight: "600",
+      style: "custom",
+    },
+    {
+      path: "./fonts/CircularXXWeb-Book.woff2",
+      weight: "500",
+      style: "circular",
+    },
+  ],
+  variable: "--font-custom", // Optional: you can define a CSS variable for custom font
 });
 
 export const metadata = {
@@ -20,7 +46,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={CustomFont.className}>
         <Provider>{children}</Provider>
       </body>
     </html>

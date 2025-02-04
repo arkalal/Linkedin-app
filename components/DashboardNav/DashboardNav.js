@@ -5,6 +5,13 @@ import styles from "./DashboardNav.module.scss";
 import { FaLinkedin } from "react-icons/fa";
 
 const DashboardNav = ({ user }) => {
+  const handleSignOut = async () => {
+    await signOut({
+      redirect: true,
+      callbackUrl: "/signIn", // Specify the redirect URL
+    });
+  };
+
   return (
     <nav className={styles.nav}>
       <div className={styles.navContent}>
@@ -24,7 +31,7 @@ const DashboardNav = ({ user }) => {
               <div className={styles.placeholder}></div>
             )}
           </div>
-          <button onClick={() => signOut()} className={styles.signOutBtn}>
+          <button onClick={handleSignOut} className={styles.signOutBtn}>
             Sign Out
           </button>
         </div>
